@@ -1,26 +1,32 @@
-package org.example;
+package org.example.notebook;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Entity
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
+@Setter
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Country {
+@ToString
+public class Notebook {
     @Id
     @GeneratedValue
+    @Column(name = "notebook_id")
     int id;
 
-    String name;
-    int age;
-}
+    String model;
+    String producer;
+    LocalDate date;
+    int ram;
+    int ssd;
 
-//Group, Order
+}

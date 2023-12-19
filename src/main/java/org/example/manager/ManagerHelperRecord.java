@@ -1,8 +1,11 @@
-package org.example;
+package org.example.manager;
 
 import jakarta.persistence.*;
 
-public class FindObjects {
+import java.util.List;
+import java.util.stream.IntStream;
+
+public class ManagerHelperRecord {
     public static void main(String[] args) {
         EntityManagerFactory factory =
                 Persistence.createEntityManagerFactory("test_jpa");
@@ -11,17 +14,14 @@ public class FindObjects {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-//        Country country = em.find(Country.class, 1);
+        TypedQuery<Manager> query = em.createQuery("FROM Manager", Manager.class);
 
-        TypedQuery<Country> query =
-                em.createQuery("FROM Country c " +
-                        "WHERE c.name =: value", Country.class);//JPQL
+        List<RManager> managers = query
+                .getResultStream()
+                .map(m -> new RManager(m.getName(), m.getAge()))
+                .toList();
 
-        query.setParameter("value", "Canada");
-
-        Country country = query.getSingleResult();
-
-        System.out.println(country);
+        System.out.println(managers);
 
         transaction.commit();
         em.close();

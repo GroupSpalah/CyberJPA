@@ -1,5 +1,6 @@
-package org.example;
+package org.example.manager;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -7,20 +8,20 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
+@Setter
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Country {
+@ToString
+public class Manager {
     @Id
     @GeneratedValue
+    @Column(name = "manager_id")
     int id;
 
     String name;
+
     int age;
 }
-
-//Group, Order
