@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Root;
 import org.example.Country;
+import org.example.Country_;
 
 import java.util.List;
 
@@ -24,11 +25,20 @@ public class FindListObjectCriteria {
 
         Root<Country> root = query.from(Country.class);
 
+        Path<Integer> pathId = root.get(Country_.id);
+        Path<String> pathName = root.get(Country_.name);
+
         query.select(root);
+
+//        query.where(builder.equal(pathName, "UK"));// SELECT * FROM Country WHERE name = 'UK'
+
+//        query.where(builder.equal(pathId, 2));// SELECT * FROM Country WHERE country_id = 2
+        query.orderBy(builder.asc(pathName));// SELECT * FROM Country ORDER BY name
 
         TypedQuery<Country> emQuery = em.createQuery(query);
 
-        System.out.println(emQuery.getResultList());
+        List<Country> countries = emQuery.getResultList();
+        System.out.println(countries);
 
         transaction.commit();
         em.close();
