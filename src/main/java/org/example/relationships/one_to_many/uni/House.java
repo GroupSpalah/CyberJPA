@@ -22,7 +22,7 @@ public class House {
 
     int number;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinTable(name = "house_citizen",
             joinColumns = @JoinColumn(name = "FK_House"),
             inverseJoinColumns = @JoinColumn(name = "FK_Citizen"))

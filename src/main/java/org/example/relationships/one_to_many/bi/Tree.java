@@ -22,6 +22,7 @@ public class Tree {
 
     String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "tree")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            mappedBy = "tree", fetch = FetchType.LAZY)
     List<Apple> apples;
 }

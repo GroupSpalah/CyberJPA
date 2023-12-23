@@ -36,7 +36,12 @@ public class TestOneToManyUni {
                 .number(10)
                 .build();
 
-        em.persist(house);
+//        em.persist(house);
+
+        House house1 = em.find(House.class, 1);
+
+        List<Citizen> citizens = house1.getCitizens();
+
 
         transaction.commit();
 

@@ -1,9 +1,6 @@
 package org.example.relationships.one_to_many.bi;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import lombok.Cleanup;
 
 import java.util.List;
@@ -13,7 +10,7 @@ public class TestOneToManyBi {
         @Cleanup
         EntityManagerFactory factory =
                 Persistence.createEntityManagerFactory("test_jpa");
-        @Cleanup
+//        @Cleanup
         EntityManager em = factory.createEntityManager();
 
         EntityTransaction transaction = em.getTransaction();
@@ -38,9 +35,22 @@ public class TestOneToManyBi {
         apple1.setTree(oak);
         apple2.setTree(oak);
 
-        em.persist(oak);
+//        em.persist(oak);
+        /*Tree tree = em.find(Tree.class, 1);
+
+        tree.setName("Maple");*/
+
+//        Apple apple = tree.getApples().get(0);
+
+        TypedQuery<Tree> query = em.createQuery("FROM Tree tr JOIN FETCH tr.apples", Tree.class);
+
+        Tree tree = query.getSingleResult();
 
         transaction.commit();
+
+        em.close();
+
+        System.out.println(tree);
 
     }
 

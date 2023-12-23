@@ -22,7 +22,7 @@ public class Human {
 
     int age;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name = "FK_Human_Phone")
     Phone phone;//phone_phone_id
 }

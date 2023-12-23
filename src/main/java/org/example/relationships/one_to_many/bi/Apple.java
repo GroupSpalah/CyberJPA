@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
+@ToString(exclude = "tree")
 public class Apple {
     @Id
     @GeneratedValue

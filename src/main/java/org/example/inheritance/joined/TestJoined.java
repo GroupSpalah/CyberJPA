@@ -1,44 +1,41 @@
-package org.example.relationships.one_to_one.uni;
+package org.example.inheritance.joined;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import lombok.Cleanup;
+import org.example.inheritance.single_table.ChildST1;
+import org.example.inheritance.single_table.ChildST2;
 
-public class TestOneToOneUni {
+public class TestJoined {
     public static void main(String[] args) {
-        @Cleanup
         EntityManagerFactory factory =
                 Persistence.createEntityManagerFactory("test_jpa");
-        @Cleanup
         EntityManager em = factory.createEntityManager();
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        Phone phone = Phone
+        ChildJ1 john = ChildJ1
                 .builder()
-                .number("093")
+                .name("John")
+                .age(32)
+                .salary(1000)
                 .build();
 
-        Human human = Human
+        ChildJ2 jack = ChildJ2
                 .builder()
-                .age(21)
-                .phone(phone)
-                .name("Tom")
+                .name("Jack")
+                .age(27)
+                .isSecretary(true)
                 .build();
 
-//        em.persist(phone);
-//        em.persist(human);
-
-        Human human1 = em.find(Human.class, 2);
-
-        human1.setPhone(null);
+        em.persist(john);
+        em.persist(jack);
 
         transaction.commit();
-        /*em.close();
-        factory.close();*/
+        em.close();
+        factory.close();
     }
 
 }

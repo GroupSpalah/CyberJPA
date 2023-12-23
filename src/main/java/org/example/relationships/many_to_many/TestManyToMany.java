@@ -1,12 +1,16 @@
-package org.example.relationships.one_to_one.uni;
+package org.example.relationships.many_to_many;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import lombok.Cleanup;
+import org.example.relationships.one_to_many.bi.Apple;
+import org.example.relationships.one_to_many.bi.Tree;
 
-public class TestOneToOneUni {
+import java.util.List;
+
+public class TestManyToMany {
     public static void main(String[] args) {
         @Cleanup
         EntityManagerFactory factory =
@@ -17,28 +21,28 @@ public class TestOneToOneUni {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        Phone phone = Phone
+        Person john = Person
                 .builder()
-                .number("093")
+                .age(32)
+                .name("John")
                 .build();
 
-        Human human = Human
+        Person jack = Person
                 .builder()
-                .age(21)
-                .phone(phone)
-                .name("Tom")
+                .age(20)
+                .name("Jack")
                 .build();
 
-//        em.persist(phone);
-//        em.persist(human);
+        City kiev = City
+                .builder()
+                .people(List.of(john, jack))
+                .name("Kiev")
+                .build();
 
-        Human human1 = em.find(Human.class, 2);
-
-        human1.setPhone(null);
+        em.persist(kiev);
 
         transaction.commit();
-        /*em.close();
-        factory.close();*/
+
     }
 
 }
